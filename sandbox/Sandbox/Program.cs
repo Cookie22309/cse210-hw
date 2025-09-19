@@ -9,14 +9,14 @@ class Program
 
         Console.WriteLine(x);
 
-        int t = 10;
+        
 
         int n = 5;
 
-        while (n < t)
+        while (n > 0)
         {
 
-            n += 1;
+            n -= 1;
             Console.WriteLine(n);
 
         }
