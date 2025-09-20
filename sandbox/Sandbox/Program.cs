@@ -7,17 +7,13 @@ class Program
         Console.WriteLine("Hello World!");
         string x = Console.ReadLine();
 
-        Console.WriteLine(x);
+        int y = int.Parse(x);
 
-        
-
-        int n = 5;
-
-        while (n > 0)
+        while (y > 0)
         {
 
-            n -= 1;
-            Console.WriteLine(n);
+            y -= 1;
+            Console.WriteLine(y);
 
         }
     }
