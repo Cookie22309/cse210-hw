@@ -2,7 +2,7 @@ class Customer
 {
     private string _name;
     private string _email;
-    public void customer(string name, string email)
+    public Customer(string name, string email)
     {
         _name = name;
         _email = email;

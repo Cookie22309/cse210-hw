@@ -2,12 +2,17 @@ class Item
 {
     private string _item;
     private float _price;
-    public void GetItem()
+    public Item(string item, float price)
     {
-        
+        _item = item;
+        _price = price;
     }
-    public void GetPrice()
+    public string GetItem()
     {
-        
+        return _item;
+    }
+    public float GetPrice()
+    {
+        return _price;
     }
 }

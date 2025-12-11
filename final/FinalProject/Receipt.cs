@@ -1,6 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
-
 abstract class Receipt
 {
     private string _item;
@@ -10,7 +7,7 @@ abstract class Receipt
     {
         return _time;
     }
-    public void Purchased(string item, float price)
+    public Receipt(string item, float price)
     {
         _item = item;
         _price = price;
