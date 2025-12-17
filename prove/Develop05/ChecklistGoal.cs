@@ -11,4 +11,12 @@ class ChecklistGoal : Goal
         List<string> load = new List<string>{"ChecklistGoal", GetName(), GetDescription(), points, pointCount, GetCheckBox()}; 
         return load;
     }
+    public override void Display(int index)
+    {
+        Console.WriteLine($"{index}. [{GetCheckBox()}] ({GetDescription()}) Points worth: {GetPoints()}");
+    }
+    public override void RecordEvent()
+    {
+        SetPointCount(GetPoints() + GetPointCount());
+    }
 }

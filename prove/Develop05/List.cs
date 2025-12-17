@@ -1,4 +1,4 @@
-class List
+class GoalList
 {
     private List<Goal> _goalList = new List<Goal>();
     public void CreateGoal()
@@ -71,87 +71,7 @@ class List
             Console.Clear();
         }
     }
-    public void ListGoals()
-    {
-        Console.Clear();
-        int count = 0;
-        int totalPoints = 0;
-        Console.WriteLine($"Total points: {totalPoints}");
-        Console.WriteLine("The goals are:");
-        foreach (Goal goal in _goalList)
-        {
-            count ++;
-            totalPoints += goal.GetPointCount();
-            Console.Write($"{ count}.  ");
-            switch(goal)
-            {
-                case SimpleGoal:
-                    Console.WriteLine($"[{goal.FileFormat()[5]}]  ({goal.FileFormat()[2]})  Points worth: {goal.FileFormat()[3]}");
-                break;
-                case ChecklistGoal:
-                    Console.WriteLine($"[{goal.FileFormat()[5]}]  ({goal.FileFormat()[2]})  Points worth: {goal.FileFormat()[3]}");
-                break;
-                case EternalGoal:
-                Console.WriteLine($"[{goal.FileFormat()[5]}]  ({goal.FileFormat()[2]})  {goal.FileFormat()[7]}/{goal.FileFormat()[8]}\n\tPoints per task: {goal.FileFormat()[6]}  Points on completion: {goal.FileFormat()[3]}");
-                break;
-            }
-        }
-        if (_goalList.Count() == 0)
-        {
-            Console.WriteLine("There are no goals yet");
-        }
-        Console.WriteLine($"\nTotal points: {totalPoints}\n");
-    }
-    public void RecordEvent()
-    {
-        Console.Clear();
-        ListGoals();
-        Console.WriteLine("Which goal did you complete: ");
-        int input = int.Parse(Console.ReadLine()) - 1;
-        int add = _goalList[input].GetPoints();
-        int currentPoints = _goalList[input].GetPointCount();
-        switch (_goalList[input])
-        {
-            case SimpleGoal:
-                if (_goalList[input].GetCheckBox() == " ")
-                {
-                    _goalList[input].SetCheckBox();
-                    _goalList[input].SetPointCount(add);
-                }
-                Console.Clear();
-                Console.WriteLine("Goal completion noted:\n");
-            break;
-            case ChecklistGoal:
-                _goalList[input].SetPointCount(add + currentPoints);
-                Console.Clear();
-                Console.WriteLine("Goal completion noted:\n");
-            break;
-            case EternalGoal:
-                int numerator = int.Parse(_goalList[input].FileFormat()[7]);
-                int denominator = int.Parse(_goalList[input].FileFormat()[8]);
-                if (numerator < denominator)
-                {
-                    switch (_goalList[input])
-                    {
-                        case EternalGoal goal:
-                            goal.SetNumerator(numerator + 1);
-                            if (numerator == denominator - 1)
-                            {
-                                goal.SetPointCount(currentPoints + goal.GetProgressPoints() + add);
-                                goal.SetCheckBox();
-                            }
-                            else
-                            {
-                                goal.SetPointCount(currentPoints + goal.GetProgressPoints());
-                            }
-                            break;
-                    }
-                }
-                Console.Clear();
-                Console.WriteLine("Goal completion noted:\n");
-            break;
-        }
-    }
+    
     public void SaveToFile()
     {
         Console.Write("\nPlease input a file name:\n  > ");
@@ -209,5 +129,47 @@ class List
         _goalList = clear;
         Console.Clear();
         Console.WriteLine("Goals cleared\n");
+    }
+    public void ListGoals()
+    {
+        Console.Clear();
+        int totalPoints = 0;
+        foreach (Goal g in _goalList)
+        {
+            totalPoints += g.GetPointCount();
+        }
+        Console.WriteLine("Total points: " + totalPoints);
+        Console.WriteLine("The goals are:");
+        if (_goalList.Count == 0)
+        {
+            Console.WriteLine("There are no goals yet");
+        }
+        else
+        {
+            int count = 1;
+            foreach (Goal goal in _goalList)
+            {
+                goal.Display(count);
+                count = count + 1;
+            }
+        }
+
+        Console.WriteLine($"\nTotal points: {totalPoints}\n");
+    }
+    public void RecordEvent()
+    {
+        Console.Clear();
+        ListGoals();
+        Console.Write("Which goal did you complete: ");
+        int input = int.Parse(Console.ReadLine()) - 1;
+        if (input >= 0)
+        {
+            if (input < _goalList.Count)
+            {
+                _goalList[input].RecordEvent();
+                Console.Clear();
+                Console.WriteLine("Goal completion noted:\n");
+            }
+        }
     }
 }

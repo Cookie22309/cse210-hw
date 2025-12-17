@@ -6,7 +6,7 @@ class Program
         int program = 1;
         string inputString;
         int input;
-        List goals = new List();
+        GoalList goals = new GoalList();
         while (program != 0)
         {
             Console.Clear();

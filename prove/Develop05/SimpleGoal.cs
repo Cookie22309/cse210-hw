@@ -12,4 +12,16 @@ class SimpleGoal : Goal
 
         return load;
     }
+    public override void RecordEvent()
+    {
+        if (GetCheckBox() == " ")
+        {
+            SetCheckBox();
+            SetPointCount(GetPoints());
+        }
+    }
+    public override void Display(int index)
+    {
+        Console.WriteLine($"{index}. [{GetCheckBox()}] ({GetDescription()}) Points worth: {GetPoints()}");
+    }
 }

@@ -40,4 +40,24 @@ class EternalGoal : Goal
         List<string> load = new List<string>{"EternalGoal", GetName(), GetDescription(), points, pointCount, checkBox, progressPoints, progressNumerator, progressDenominator}; 
         return load;
     }
+    public override void Display(int index)
+    {
+        Console.WriteLine($"{index}. [{GetCheckBox()}] ({GetDescription()}) {_progressNumerator}/{_progressDenominator}\n\tPoints per task: {_progressPoints} Points on completion: {GetPoints()}");
+    }
+    public override void RecordEvent()
+    {
+        if (_progressNumerator < _progressDenominator)
+        {
+            _progressNumerator = _progressNumerator + 1;
+            if (_progressNumerator == _progressDenominator)
+            {
+                SetPointCount(GetPointCount() + _progressPoints + GetPoints());
+                SetCheckBox();
+            }
+            else
+            {
+                SetPointCount(GetPointCount() + _progressPoints);
+            }
+        }
+    }
 }

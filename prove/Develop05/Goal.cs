@@ -42,4 +42,6 @@ abstract class Goal
         _pointCount += add;
     }
     public abstract List<string> FileFormat();
+    public abstract void Display(int index);
+    public abstract void RecordEvent();
 }
